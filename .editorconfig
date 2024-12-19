@@ -1,0 +1,31 @@
+root = true
+
+[*.*]
+end_of_line = crlf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+
+[*.{html,htm,xml,config,csproj,aspx,ascx,cshtml,resx,json,targets,props,yml,yaml}]
+indent_size = 2
+
+[*.cs]
+accessor_owner_body = expression_body
+braces_for_foreach = required
+braces_for_ifelse = required
+braces_for_for = required
+csharp_new_line_before_open_brace = all
+csharp_parentheses_redundancy_style = remove_if_not_clarifies_precedence
+csharp_remove_blank_lines_near_braces_in_declarations = true
+csharp_space_after_keywords_in_control_flow_statements = true
+dotnet_sort_system_directives_first = true
+extra_spaces = remove_all
+insert_final_newline = false
+method_or_operator_body = expression_body
+namespace_body = file_scoped
+object_creation_when_type_evident = target_typed
+trailing_comma_in_multiline_lists = false
+
+
+[*.docker-compose.yml]
+quote_type = double
