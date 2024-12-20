@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace DemoApi.Domain;
+﻿namespace DemoApi.Domain;
 
 public class Blog
 {

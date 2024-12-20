@@ -1,3 +1,6 @@
+using DemoApi.Domain;
+using DemoApi.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,29 +19,32 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+var context = new DatabaseContext();
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/blogs", () =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var blogs = context.Blogs.ToList();
+    return blogs;
 })
-.WithName("GetWeatherForecast")
+.WithName("GetBlogs")
+.WithOpenApi();
+
+app.MapGet("/blogs/{id}", async (int id) =>
+    await context.Blogs.FindAsync(id)
+        is Blog blog
+            ? Results.Ok(blog)
+            : Results.NotFound())
+.WithName("GetBlog")
+.WithOpenApi();
+
+app.MapPost("/blogs", async (Blog blog) =>
+{
+    context.Blogs.Add(blog);
+    await context.SaveChangesAsync();
+
+    return Results.Created($"/blogs/{blog.BlogId}", blog);
+})
+.WithName("CreateBlog")
 .WithOpenApi();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
