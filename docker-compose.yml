@@ -1,0 +1,10 @@
+services:
+  demo-db:
+    container_name: demo-db
+    image: postgres:17.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 42ebe52d-ddc9-47c6-b03d-b2cd1ca17393
+      POSTGRES_DB: demo_db
+    ports:
+      - 5432:5432
