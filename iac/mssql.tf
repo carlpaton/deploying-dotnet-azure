@@ -1,6 +1,6 @@
 resource "azurerm_mssql_server" "demo-sql" {
   location                     = azurerm_resource_group.demo-rg.location
-  name                         = "demo-sql-${env_id}"
+  name                         = "demo-sql-${var.env_id}"
   resource_group_name          = azurerm_resource_group.demo-rg.name
   version                      = "12.0"
   administrator_login          = var.sql_user
