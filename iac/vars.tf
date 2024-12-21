@@ -15,3 +15,15 @@ variable "source_key" {
   description = "The infastructure source"
   default     = "terraform"
 }
+
+variable "sql_pass" {
+  type        = string
+  description = "The SQL Server password"
+  # no default means it will need to be an input
+}
+
+variable "sql_user" {
+  type        = string
+  description = "The SQL Server user"
+  # no default means it will need to be an input
+}
