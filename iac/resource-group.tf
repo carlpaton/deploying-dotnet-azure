@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "demo-rg" {
-  location = "Australia East"
+  location = var.location
   name     = "demo-rg"
 
   tags = {
