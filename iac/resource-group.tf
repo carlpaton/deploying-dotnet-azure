@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "demo-rg" {
-  location = "Australia Central"
+  location = "Australia East"
   name     = "demo-rg"
 
   tags = {

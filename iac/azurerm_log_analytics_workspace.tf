@@ -4,4 +4,9 @@ resource "azurerm_log_analytics_workspace" "demo-law" {
   name                = "demo-law${var.env_id}"
   sku                 = "PerGB2018"
   retention_in_days   = 30
+
+  tags = {
+    environment = var.env_id
+    source      = var.source_key
+  }   
 }
