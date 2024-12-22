@@ -72,4 +72,7 @@ jobs:
           containerAppEnvironment: demo-cae-dev
           resourceGroup: demo-rg
           environmentVariables: |
-            ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://+:8080 ConnectionStrings__SqlServer=$AZ_MSSQL_DB_CONN
+            ASPNETCORE_ENVIRONMENT=Development |
+            ASPNETCORE_HTTPS_PORTS=8081 |
+            ASPNETCORE_HTTP_PORTS=8080 |
+            ConnectionStrings__SqlServer=$AZ_MSSQL_DB_CONN
