@@ -1,0 +1,29 @@
+name: Build and Deploy API on Azure
+
+# Controls when the action will run
+on:
+  push:
+    branches:
+      - main
+
+# Workflows of the pipeline
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      id: github
+      uses: actions/Checkout@v3
+
+    - name: Setup WebApi .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Configure Azure Container Registry (ACR)
+      uses: azure/docker-login@v2
+      with:
+        login-server: ${{ vars.ACR_SERVER_DEV }}
+        username: ${{ secrets.ACR_USER_DEV }}
+        password: ${{ secrets.ACR_USER_PASSWORD_DEV }}
