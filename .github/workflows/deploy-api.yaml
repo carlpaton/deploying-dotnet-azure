@@ -37,9 +37,10 @@ jobs:
         echo "::set-output name=short_sha::$getSha"
 
     - name: Build and push image to Azure Container Registry (ACR)
+      working-directory: ./src/DemoApi
       env:
         ACR_REGISTRY: ${{ vars.ACR_SERVER }}
         IMAGE_TAG: ${{ steps.vars.outputs.short_sha }}
       run: |
-        docker build -f ./src/DemoApi/Dockerfile -t $ACR_REGISTRY/demoacrdev:$IMAGE_TAG -t $ACR_REGISTRY/demoacrdev:latest .
+        docker build -t $ACR_REGISTRY/demoacrdev:$IMAGE_TAG -t $ACR_REGISTRY/demoacrdev:latest .
         docker push $ACR_REGISTRY/demoacrdev --all-tags
