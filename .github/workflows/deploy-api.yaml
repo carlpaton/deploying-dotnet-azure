@@ -10,8 +10,10 @@ on:
 
 # Workflows of the pipeline
 jobs:
-  build-and-deploy:
+  build-and-push-image:
     runs-on: ubuntu-22.04
+    outputs:
+      short_sha: ${{ steps.vars.outputs.short_sha }}
 
     steps:
     - name: Checkout repository
@@ -44,3 +46,13 @@ jobs:
       run: |
         docker build -t $ACR_REGISTRY/demoacrdev:$IMAGE_TAG -t $ACR_REGISTRY/demoacrdev:latest .
         docker push $ACR_REGISTRY/demoacrdev --all-tags
+
+  deploy-image-to-container-service:
+    runs-on: ubuntu-22.04
+    needs: build-and-push-image
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login/v1
+        with:
+          creds: ${{ secrets.AZ_CREDENTIALS }}
