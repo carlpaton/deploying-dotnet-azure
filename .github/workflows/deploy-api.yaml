@@ -41,5 +41,5 @@ jobs:
         ACR_REGISTRY: ${{ vars.ACR_SERVER }}
         IMAGE_TAG: ${{ steps.vars.outputs.short_sha }}
       run: |
-        docker build -f Dockerfile -t $ARC_REGISTRY/demoacrdev:IMAGE_TAG -t $ARC_REGISTRY/demoacrdev:latest .
+        docker build -f Dockerfile -t $ARC_REGISTRY/demoacrdev:$IMAGE_TAG -t $ARC_REGISTRY/demoacrdev:latest .
         docker push $ACR_REGISTRY/demoacrdev --all-tags
