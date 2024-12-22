@@ -34,4 +34,12 @@ jobs:
       id: vars
       run: |
         getSha=$(git rev-parse --short ${{ github.sha }})
-        echo "::set-output name=sha::$getSha"
+        echo "::set-output name=short_sha::$getSha"
+
+    - name: Build and push image to Azure Container Registry (ACR)
+      env:
+        ACR_REGISTRY: ${{ vars.ACR_SERVER }}
+        IMAGE_TAG: ${{ steps.vars.outputs.short_sha }}
+      run: |
+        docker build -f Dockerfile -t $ARC_REGISTRY/demoacrdev:IMAGE_TAG $ARC_REGISTRY/demoacrdev:latest .
+        docker push $ACR_REGISTRY/demoacrdev --all-tags
