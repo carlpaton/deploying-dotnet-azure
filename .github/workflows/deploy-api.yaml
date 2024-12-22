@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      id: github_id
+      id: github
       uses: actions/Checkout@v3
 
     - name: Setup WebApi .NET
@@ -33,4 +33,4 @@ jobs:
     - name: Get commit SHA
       id: vars
       run: |
-        getSha=$(git rev-parse --short ${{ github_id.sha }})
+        getSha=$(git rev-parse --short ${{ github.sha }})
