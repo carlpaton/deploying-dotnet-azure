@@ -56,3 +56,19 @@ jobs:
         uses: azure/login/@v1
         with:
           creds: ${{ secrets.AZ_CREDENTIALS }}
+
+      - name: Deploy to Azure Container Apps (ACA)
+        uses: azure/container-apps-deploy-action@v1
+        env:
+          IMAGE_TAG: ${{ needs.build-and-push-image.outputs.short_sha }}
+          ACR_SERVER: ${{ vars.ACR_SERVER }}
+        with:
+          registryUrl: ${{ vars.ACR_SERVER }}
+          imageToDeploy: $ACR_REGISTRY/demoacrdev:$IMAGE_TAG
+          targetPort: 8080
+          ingress: external
+          containerAppName: demo-aca-app
+          containerAppEnvironment: demo-cae-dev
+          resourceGroup: demo-rg
+          environmentVariables: |
+            ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://+:8080
