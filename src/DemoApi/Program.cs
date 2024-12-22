@@ -1,12 +1,23 @@
 using DemoApi.Domain;
 using DemoApi.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// POSTGRES -> Npgsql.EntityFrameworkCore.PostgreSQL 9.0.2
+//builder.Services.AddDbContext<DatabaseContext>(o =>
+//    o.UseNpgsql(connectionString));
+
+//MSSQL -> Microsoft.EntityFrameworkCore.SqlServer 9.0.0
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -19,7 +30,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var context = new DatabaseContext();
+// dirty hack, this would not be disposed but works for POC
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
 app.MapGet("/blogs", () =>
 {
