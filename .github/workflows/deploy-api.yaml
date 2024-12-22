@@ -34,3 +34,4 @@ jobs:
       id: vars
       run: |
         getSha=$(git rev-parse --short ${{ github.sha }})
+        echo "::set-output name=sha::$getSha"
