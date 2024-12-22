@@ -34,6 +34,9 @@ app.UseHttpsRedirection();
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
+// migrate the db when the app runs
+context.Database.Migrate();
+
 app.MapGet("/blogs", () =>
 {
     var blogs = context.Blogs.ToList();
