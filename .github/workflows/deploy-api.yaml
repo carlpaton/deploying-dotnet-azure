@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      id: github
+      id: github_id
       uses: actions/Checkout@v3
 
     - name: Setup WebApi .NET
@@ -29,3 +29,8 @@ jobs:
         login-server: ${{ vars.ACR_SERVER }}
         username: ${{ secrets.ACR_USER }}
         password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Get commit SHA
+      id: vars
+      run: |
+        getSha=$(git rev-parse --short ${{ github_id.sha }})
