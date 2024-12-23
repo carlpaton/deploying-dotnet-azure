@@ -1,10 +1,8 @@
-using DemoApi.Domain;
+using DemoApi.Blogs;
 using DemoApi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -17,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 //MSSQL -> Microsoft.EntityFrameworkCore.SqlServer 9.0.0
 builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 var app = builder.Build();
 
@@ -30,37 +28,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// dirty hack, this would not be disposed but works for POC
-var scope = app.Services.CreateScope();
-var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-
-// migrate the db when the app runs
-context.Database.Migrate();
-
-app.MapGet("/blogs", () =>
+using (var scope = app.Services.CreateScope())
 {
-    var blogs = context.Blogs.ToList();
-    return blogs;
-})
-.WithName("GetBlogs")
-.WithOpenApi();
+    var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    context.Database.Migrate();
+}
 
-app.MapGet("/blogs/{id}", async (int id) =>
-    await context.Blogs.FindAsync(id)
-        is Blog blog
-            ? Results.Ok(blog)
-            : Results.NotFound())
-.WithName("GetBlog")
-.WithOpenApi();
-
-app.MapPost("/blogs", async (Blog blog) =>
-{
-    context.Blogs.Add(blog);
-    await context.SaveChangesAsync();
-
-    return Results.Created($"/blogs/{blog.BlogId}", blog);
-})
-.WithName("CreateBlog")
-.WithOpenApi();
-
+app.MapBlogEndpoints();
 app.Run();
