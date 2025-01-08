@@ -5,6 +5,8 @@ run-name: CI/CD ${{ github.event_name }} by @${{ github.actor }}
 on:
   workflow_dispatch:
   push:
+    paths-ignore:
+      - 'iac/**'
     branches:
       - main
 
