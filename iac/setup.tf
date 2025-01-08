@@ -6,12 +6,12 @@ terraform {
     }
   }
 
-#   backend "azurerm" {
-#     resource_group_name = "reference-rg"
-#     storage_account_name = "demoiac"
-#     container_name = "terraform"
-#     key = "terraform.tfstate"
-#   }
+  backend "azurerm" {
+    resource_group_name  = "reference-rg"
+    storage_account_name = "demoiacbb8c7a39"
+    container_name       = "terraform"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
