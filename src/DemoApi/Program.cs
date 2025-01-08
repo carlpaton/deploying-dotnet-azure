@@ -36,3 +36,5 @@ using (var scope = app.Services.CreateScope())
 
 app.MapBlogEndpoints();
 app.Run();
+
+// change
