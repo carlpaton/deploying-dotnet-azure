@@ -68,7 +68,7 @@ jobs:
           imageToDeploy: $ACR_SERVER/demoacrbb8c7a39dev:$IMAGE_TAG
           targetPort: 8080
           ingress: external
-          containerAppName: demo-acadev
+          containerAppName: demo-aca-bb8c7a39-dev
           containerAppEnvironment: demo-cae-bb8c7a39-dev
           resourceGroup: demo-rg-bb8c7a39-dev
           environmentVariables: |
