@@ -4,7 +4,7 @@ services:
   #   image: postgres:17.2
   #   environment:
   #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: 42ebe52d-ddc9-47c6-b03d-b2cd1ca17393
+  #     POSTGRES_PASSWORD: 00000000-0000-0000-0000-919333ac7aaf
   #     POSTGRES_DB: demo_db
   #   ports:
   #     - 5432:5432
@@ -14,6 +14,6 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 42ebe52d-ddc9-47c6-b03d-b2cd1ca17393
+      MSSQL_SA_PASSWORD: 00000000-0000-0000-0000-919333ac7aaf # you can use then use this with SA user
     ports:
       - 1433:1433
