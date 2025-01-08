@@ -18,8 +18,8 @@ resource "azurerm_mssql_database" "demo-db" {
   server_id      = azurerm_mssql_server.demo-sql.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
-  max_size_gb    = 10
-  sku_name       = "S1"
+  max_size_gb    = 2    # 10
+  sku_name       = "S0" # S1
   zone_redundant = false
 
   lifecycle {
@@ -33,7 +33,7 @@ resource "azurerm_mssql_database" "demo-db" {
   }
 }
 
-# this allows access from anywhere in Azure and external
+# this allows access from anywhere in Azure
 resource "azurerm_mssql_firewall_rule" "demo-rule" {
   end_ip_address   = "0.0.0.0"
   name             = "all_azure"
