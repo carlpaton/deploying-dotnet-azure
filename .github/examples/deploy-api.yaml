@@ -1,12 +1,15 @@
 name: Build and Deploy API on Azure
-run-name: CI/CD ${{ github.event_name }} by @${{ github.actor }}
+run-name: Application API CI/CD ${{ github.event_name }} by @${{ github.actor }}
 
 # Controls when the action will run
 on:
   workflow_dispatch:
   push:
+    paths-ignore:
+      - 'iac/**'
     branches:
       - main
+
 
 # Workflows of the pipeline
 jobs:

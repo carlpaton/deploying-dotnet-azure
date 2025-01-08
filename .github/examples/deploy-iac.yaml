@@ -1,5 +1,5 @@
 name: Deploy IAC on Azure
-run-name: CI/CD ${{ github.event_name }} by @${{ github.actor }}
+run-name: Terraform CI/CD ${{ github.event_name }} by @${{ github.actor }}
 
 # Controls when the action will run
 on:
