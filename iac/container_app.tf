@@ -2,7 +2,7 @@ resource "azurerm_container_app" "demo-aca" {
   container_app_environment_id = azurerm_container_app_environment.demo-cae.id
   name                         = "demo-aca-${var.group_key}-${var.env_id}"
   resource_group_name          = azurerm_resource_group.demo-rg.name
-  revision_mode                = "Multiple"
+  revision_mode                = "Single" # Multiple
 
   template {
     min_replicas = 1
