@@ -6,6 +6,6 @@ resource "azurerm_resource_group" "demo-rg" {
     environment = var.env_id
     source      = var.source_key
     group_key   = var.group_key
-    testtag     = "testtag4"
+    testtag     = "testtag5"
   }
 }
