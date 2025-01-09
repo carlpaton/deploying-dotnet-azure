@@ -7,6 +7,8 @@ on:
   push:
     paths-ignore:
       - 'iac/**'
+      - '.github/examples/**'
+      - '.github/workflows/deploy-iac.yaml'
     branches:
       - main
 
