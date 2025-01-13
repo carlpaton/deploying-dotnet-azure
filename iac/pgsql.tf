@@ -10,7 +10,7 @@ resource "azurerm_postgresql_server" "demo-pgsql" {
   geo_redundant_backup_enabled = false
   auto_grow_enabled            = true
 
-  administrator_login          = var.sql_user
+  administrator_login          = "sqldemoadmin" //var.sql_user
   administrator_login_password = var.sql_pass
   version                      = "9.5"
   ssl_enforcement_enabled      = true
