@@ -3,7 +3,7 @@ resource "azurerm_postgresql_server" "demo-pgsql" {
   location            = azurerm_resource_group.demo-rg.location
   resource_group_name = azurerm_resource_group.demo-rg.name
 
-  sku_name = "B_Gen4_1"
+  sku_name = "B_Gen5_1"
 
   storage_mb                   = 5120
   backup_retention_days        = 7
