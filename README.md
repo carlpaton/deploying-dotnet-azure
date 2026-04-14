@@ -1,1 +1,1 @@
-# deploying-dotnet-azure
+Sample code used with post https://carlpaton.github.io/2024/12/deploying-dotnet-applications-azure/
